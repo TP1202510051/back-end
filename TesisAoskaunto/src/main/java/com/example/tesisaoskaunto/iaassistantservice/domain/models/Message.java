@@ -14,7 +14,7 @@ public class Message {
 
     private String content;
 
-    private Integer type;
+    private String type;
 
     private String conversationId;
 
@@ -27,7 +27,7 @@ public class Message {
 
     public Message() {}
 
-    public Message(String content, Integer type, String conversationId) {
+    public Message(String content, String type, String conversationId) {
         this.content = content;
         this.type = type;
         this.conversationId = conversationId;
@@ -41,7 +41,7 @@ public class Message {
         return content;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
@@ -49,7 +49,7 @@ public class Message {
         return conversationId;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 

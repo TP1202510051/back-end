@@ -10,7 +10,7 @@ service AssistantService {
 
 message MessageRequest {
   string message = 1;
-  int32 type = 2;
+  string type = 2;
   string conversationId = 3;
 }
 

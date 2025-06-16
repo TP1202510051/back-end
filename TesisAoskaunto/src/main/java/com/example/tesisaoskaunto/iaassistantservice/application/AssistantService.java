@@ -13,7 +13,7 @@ public class AssistantService {
         this.assistantRepository = assistantRepository;
     }
 
-    public String saveMessageAndType(String content, Integer type, String conversationId) {
+    public String saveMessageAndType(String content, String type, String conversationId) {
         Message message = new Message();
         message.setContent(content);
         message.setType(type);
