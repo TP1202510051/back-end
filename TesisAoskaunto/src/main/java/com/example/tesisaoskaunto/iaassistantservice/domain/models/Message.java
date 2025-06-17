@@ -60,4 +60,8 @@ public class Message {
     public void setConversationId(String conversationId) {
         this.conversationId = conversationId;
     }
+
+    public String getCreatedAt() {
+        return createdAt.toString();
+    }
 }
