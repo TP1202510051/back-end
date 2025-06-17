@@ -29,6 +29,7 @@ public class MessagesServiceImpl extends MessageServiceGrpc.MessageServiceImplBa
                 .map(m -> MessageProto.newBuilder()
                         .setId(m.getId())
                         .setContent(m.getContent())
+                        .setConversationId(m.getConversationId())
                         .setType(m.getType())
                         .setCreatedAt(m.getCreatedAt())
                         .build()).toList();
