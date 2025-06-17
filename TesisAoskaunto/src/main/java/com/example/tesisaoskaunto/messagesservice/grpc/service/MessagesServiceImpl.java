@@ -6,7 +6,7 @@ import com.example.tesisaoskaunto.messagesservice.grpc.proto.ConversationIdReque
 import com.example.tesisaoskaunto.messagesservice.grpc.proto.MessageProto;
 import com.example.tesisaoskaunto.messagesservice.grpc.proto.MessageResponse;
 import com.example.tesisaoskaunto.messagesservice.infrastructure.repositories.MessagesRepository;
-import com.example.tesisaoskaunto.iaassistantservice.domain.models.Message;
+import com.example.tesisaoskaunto.conversationassistantservice.domain.models.Message;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 

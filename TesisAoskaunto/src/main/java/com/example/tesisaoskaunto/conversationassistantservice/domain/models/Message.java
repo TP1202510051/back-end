@@ -1,4 +1,4 @@
-package com.example.tesisaoskaunto.iaassistantservice.domain.models;
+package com.example.tesisaoskaunto.conversationassistantservice.domain.models;
 
 import jakarta.persistence.*;
 
