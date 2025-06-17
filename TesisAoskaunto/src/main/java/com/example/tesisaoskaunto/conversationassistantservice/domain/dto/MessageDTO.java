@@ -1,4 +1,4 @@
-package com.example.tesisaoskaunto.iaassistantservice.domain.dto;
+package com.example.tesisaoskaunto.conversationassistantservice.domain.dto;
 
 import lombok.Data;
 

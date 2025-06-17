@@ -1,7 +1,7 @@
-package com.example.tesisaoskaunto.iaassistantservice.infrastructure.messaging;
+package com.example.tesisaoskaunto.conversationassistantservice.infrastructure.messaging;
 
-import com.example.tesisaoskaunto.iaassistantservice.application.AssistantService;
-import com.example.tesisaoskaunto.iaassistantservice.domain.dto.MessageDTO;
+import com.example.tesisaoskaunto.conversationassistantservice.application.ConversationAssistant;
+import com.example.tesisaoskaunto.conversationassistantservice.domain.dto.MessageDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +14,11 @@ import com.google.cloud.pubsub.v1.AckReplyConsumer;
 @Configuration
 public class PubSubListener {
 
-    private final AssistantService assistantService;
+    private final ConversationAssistant conversationAssistantServiceassistant;
     private final ObjectMapper objectMapper;
 
-    public PubSubListener(AssistantService assistantService) {
-        this.assistantService = assistantService;
+    public PubSubListener(ConversationAssistant conversationAssistantServiceassistant) {
+        this.conversationAssistantServiceassistant = conversationAssistantServiceassistant;
         this.objectMapper = new ObjectMapper();
         System.out.println("PubSubListener inicializado correctamente");
     }
@@ -39,7 +39,7 @@ public class PubSubListener {
                 MessageDTO msg = objectMapper.readValue(messageJson, MessageDTO.class);
                 System.out.println("📥 Mensaje procesado: " + msg.getMessage());
 
-                assistantService.saveMessageAndType(msg.getMessage(), msg.getType(), msg.getConversationId());
+                conversationAssistantServiceassistant.saveMessageAndType(msg.getMessage(), msg.getType(), msg.getConversationId());
             } catch (Exception e) {
                 System.err.println("❌ Error al procesar el mensaje: " + e.getMessage());
             } finally {

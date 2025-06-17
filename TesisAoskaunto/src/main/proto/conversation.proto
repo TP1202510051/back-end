@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.tesisaoskaunto.conversationservice.grpc.proto";
+option java_outer_classname = "ConversationProto";
+
+service ConversationService {
+  rpc CreateConversation (ConversationRequest) returns (ConversationAnswerResponse);
+}
+
+message ConversationRequest {
+  string userId = 1;
+  string name = 2;
+}
+
+message ConversationAnswerResponse {
+  string answer = 1;
+}
