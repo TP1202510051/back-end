@@ -1,6 +1,6 @@
 package com.example.tesisaoskaunto.messageservice.grpc.service;
 
-import com.example.tesisaoskaunto.conversationservice.application.ConversationAssistant;
+import com.example.tesisaoskaunto.messageservice.application.MessageAssistant;
 import com.example.tesisaoskaunto.messageservice.grpc.proto.*;
 import com.example.tesisaoskaunto.messageservice.infrastructure.repositories.MessagesRepository;
 import com.example.tesisaoskaunto.messageservice.domain.models.Message;
@@ -15,9 +15,9 @@ import java.util.Optional;
 public class MessagesServiceImpl extends MessageServiceGrpc.MessageServiceImplBase {
 
     private final MessagesRepository messagesRepository;
-    private final ConversationAssistant conversationAssistant;
+    private final MessageAssistant conversationAssistant;
 
-    public MessagesServiceImpl(MessagesRepository messagesRepository, ConversationAssistant conversationAssistant) {
+    public MessagesServiceImpl(MessagesRepository messagesRepository, MessageAssistant conversationAssistant) {
         this.conversationAssistant = conversationAssistant;
         this.messagesRepository = messagesRepository;
     }
