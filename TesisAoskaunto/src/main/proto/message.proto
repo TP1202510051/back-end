@@ -1,25 +1,36 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "com.example.tesisaoskaunto.messagesservice.grpc.proto";
+option java_package = "com.example.tesisaoskaunto.messageservice.grpc.proto";
 option java_outer_classname = "MessagesProto";
 
 service MessageService {
   rpc GetMessagesByConversationId (ConversationIdRequest) returns (MessageResponse);
+  rpc CreateMessage (MessageRequest) returns (AnswerResponse);
+}
+
+message MessageRequest {
+  string message = 1;
+  string type = 2;
+  int64 conversationId = 3;
+}
+
+message AnswerResponse {
+  string answer = 1;
 }
 
 message ConversationIdRequest {
-  string conversationId = 1;
+  int64 conversationId = 1;
 }
 
 message MessageProto {
   int64 id = 1;
   string content = 2;
-  string conversationId = 3;
+  int64 conversationId = 3;
   string createdAt = 4;
   string type = 5;
 }
 
 message MessageResponse {
-  repeated MessageProto entities = 1;
+  repeated MessageProto messages = 1;
 }

@@ -1,4 +1,4 @@
-package com.example.tesisaoskaunto.conversationassistantservice.domain.models;
+package com.example.tesisaoskaunto.messageservice.domain.models;
 
 import jakarta.persistence.*;
 
@@ -16,7 +16,7 @@ public class Message {
 
     private String type;
 
-    private String conversationId;
+    private Long conversationId;
 
     private LocalDateTime createdAt;
 
@@ -27,7 +27,7 @@ public class Message {
 
     public Message() {}
 
-    public Message(String content, String type, String conversationId) {
+    public Message(String content, String type, Long conversationId) {
         this.content = content;
         this.type = type;
         this.conversationId = conversationId;
@@ -45,7 +45,7 @@ public class Message {
         return type;
     }
 
-    public String getConversationId() {
+    public Long getConversationId() {
         return conversationId;
     }
 
@@ -57,7 +57,7 @@ public class Message {
         this.content = content;
     }
 
-    public void setConversationId(String conversationId) {
+    public void setConversationId(Long conversationId) {
         this.conversationId = conversationId;
     }
 
