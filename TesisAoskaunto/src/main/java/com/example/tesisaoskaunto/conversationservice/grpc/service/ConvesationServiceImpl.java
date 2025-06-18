@@ -54,7 +54,7 @@ public class ConvesationServiceImpl extends ConversationServiceGrpc.Conversation
 
         if (conversation.isEmpty()) {
             responseObserver.onError(Status.NOT_FOUND
-                    .withDescription("Conversation not found")
+                    .withDescription("Conversation with id " + request.getId() + " not found")
                     .asRuntimeException());
             return;
         }
