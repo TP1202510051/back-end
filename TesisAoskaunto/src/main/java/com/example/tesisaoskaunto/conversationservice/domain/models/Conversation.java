@@ -1,4 +1,4 @@
-package com.example.tesisaoskaunto.conversationassistantservice.domain.models;
+package com.example.tesisaoskaunto.conversationservice.domain.models;
 
 import jakarta.persistence.*;
 
@@ -12,7 +12,7 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public String userId;
+    public Long userId;
 
     public String conversationName;
 
@@ -25,7 +25,7 @@ public class Conversation {
 
     public Conversation() {}
 
-    public Conversation(String userId, String conversationName) {
+    public Conversation(Long userId, String conversationName) {
         this.userId = userId;
         this.conversationName = conversationName;
     }
@@ -34,7 +34,7 @@ public class Conversation {
         return id;
     }
 
-    public String getUserId(String userId) {return userId;}
+    public Long getUserId() {return userId;}
 
     public String getConversationName() {return conversationName;}
 
@@ -42,7 +42,7 @@ public class Conversation {
         return createdAt.toString();
     }
 
-    public void setUserId(String userId) {this.userId = userId;}
+    public void setUserId(Long userId) {this.userId = userId;}
 
     public void setConversationName(String conversationName) {this.conversationName = conversationName;}
 }

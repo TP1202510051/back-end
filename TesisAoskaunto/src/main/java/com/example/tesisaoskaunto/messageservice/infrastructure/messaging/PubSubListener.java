@@ -1,7 +1,7 @@
-package com.example.tesisaoskaunto.conversationassistantservice.infrastructure.messaging;
+package com.example.tesisaoskaunto.messageservice.infrastructure.messaging;
 
-import com.example.tesisaoskaunto.conversationassistantservice.application.ConversationAssistant;
-import com.example.tesisaoskaunto.conversationassistantservice.domain.dto.MessageDTO;
+import com.example.tesisaoskaunto.conversationservice.application.ConversationAssistant;
+import com.example.tesisaoskaunto.messageservice.domain.dto.MessageDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +39,7 @@ public class PubSubListener {
                 MessageDTO msg = objectMapper.readValue(messageJson, MessageDTO.class);
                 System.out.println("📥 Mensaje procesado: " + msg.getMessage());
 
-                conversationAssistantServiceassistant.saveMessageAndType(msg.getMessage(), msg.getType(), msg.getConversationId());
+                conversationAssistantServiceassistant.saveMessageAndType(msg.getMessage(), msg.getType(), Long.parseLong(msg.getConversationId()));
             } catch (Exception e) {
                 System.err.println("❌ Error al procesar el mensaje: " + e.getMessage());
             } finally {
