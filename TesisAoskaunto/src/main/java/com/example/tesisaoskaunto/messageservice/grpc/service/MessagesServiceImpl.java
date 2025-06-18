@@ -51,16 +51,25 @@ public class MessagesServiceImpl extends MessageServiceGrpc.MessageServiceImplBa
 
     @Override
     public void updateMessage(UpdateMessageRequest request, StreamObserver<AnswerResponse> responseObserver) {
-        Optional<Message> message = messagesRepository.findById(request.getId());
+        Long id = request.getId();
 
-        if (message.isEmpty()) {
+        if (id <= 0) {
+            responseObserver.onError(Status.INVALID_ARGUMENT
+                    .withDescription("Invalid ID: must be a positive number")
+                    .asRuntimeException());
+            return;
+        }
+
+        Optional<Message> msg = messagesRepository.findById(request.getId());
+
+        if (msg.isEmpty()) {
             responseObserver.onError(Status.NOT_FOUND
                 .withDescription("Message with id " + request.getId() + " not found")
                 .asRuntimeException());
             return;
         }
 
-        Message mess = message.get();
+        Message mess = msg.get();
         mess.setContent(request.getMessage());
         messagesRepository.save(mess);
 
