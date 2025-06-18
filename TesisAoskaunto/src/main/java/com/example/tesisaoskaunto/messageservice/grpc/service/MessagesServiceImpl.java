@@ -1,18 +1,15 @@
 package com.example.tesisaoskaunto.messageservice.grpc.service;
 
 import com.example.tesisaoskaunto.conversationservice.application.ConversationAssistant;
-import com.example.tesisaoskaunto.messageservice.grpc.proto.MessageRequest;
-import com.example.tesisaoskaunto.messageservice.grpc.proto.MessageServiceGrpc;
-import com.example.tesisaoskaunto.messageservice.grpc.proto.ConversationIdRequest;
-import com.example.tesisaoskaunto.messageservice.grpc.proto.MessageProto;
-import com.example.tesisaoskaunto.messageservice.grpc.proto.MessageResponse;
-import com.example.tesisaoskaunto.messageservice.grpc.proto.AnswerResponse;
+import com.example.tesisaoskaunto.messageservice.grpc.proto.*;
 import com.example.tesisaoskaunto.messageservice.infrastructure.repositories.MessagesRepository;
 import com.example.tesisaoskaunto.messageservice.domain.models.Message;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 import java.util.List;
+import java.util.Optional;
 
 @GrpcService
 public class MessagesServiceImpl extends MessageServiceGrpc.MessageServiceImplBase {
@@ -49,6 +46,38 @@ public class MessagesServiceImpl extends MessageServiceGrpc.MessageServiceImplBa
         String generatedResponse = conversationAssistant.saveMessageAndType(request.getMessage(), request.getType(), request.getConversationId());
         AnswerResponse reply = AnswerResponse.newBuilder().setAnswer(generatedResponse).build();
         responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateMessage(UpdateMessageRequest request, StreamObserver<AnswerResponse> responseObserver) {
+        Long id = request.getId();
+
+        if (id <= 0) {
+            responseObserver.onError(Status.INVALID_ARGUMENT
+                    .withDescription("Invalid ID: must be a positive number")
+                    .asRuntimeException());
+            return;
+        }
+
+        Optional<Message> msg = messagesRepository.findById(request.getId());
+
+        if (msg.isEmpty()) {
+            responseObserver.onError(Status.NOT_FOUND
+                .withDescription("Message with id " + request.getId() + " not found")
+                .asRuntimeException());
+            return;
+        }
+
+        Message mess = msg.get();
+        mess.setContent(request.getMessage());
+        messagesRepository.save(mess);
+
+        AnswerResponse response = AnswerResponse.newBuilder()
+                .setAnswer(mess.getContent())
+                .build();
+
+        responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
 }

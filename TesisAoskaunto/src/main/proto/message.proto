@@ -7,6 +7,7 @@ option java_outer_classname = "MessagesProto";
 service MessageService {
   rpc GetMessagesByConversationId (ConversationIdRequest) returns (MessageResponse);
   rpc CreateMessage (MessageRequest) returns (AnswerResponse);
+  rpc UpdateMessage (UpdateMessageRequest) returns (AnswerResponse);
 }
 
 message MessageRequest {
@@ -33,4 +34,9 @@ message MessageProto {
 
 message MessageResponse {
   repeated MessageProto messages = 1;
+}
+
+message UpdateMessageRequest {
+  int64 id = 1;
+  string message = 2;
 }
