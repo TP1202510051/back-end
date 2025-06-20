@@ -1,4 +1,4 @@
-package com.example.tesisaoskaunto.brokerservice.dto;
+package com.example.tesisaoskaunto.assistantservice.dto;
 
 import lombok.Data;
 

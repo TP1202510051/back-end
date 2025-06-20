@@ -1,7 +1,7 @@
-package com.example.tesisaoskaunto.brokerservice.messaging.handler;
+package com.example.tesisaoskaunto.assistantservice.messaging.handler;
 
-import com.example.tesisaoskaunto.brokerservice.dto.MessageDTO;
-import com.example.tesisaoskaunto.brokerservice.service.MessageProcessingService;
+import com.example.tesisaoskaunto.assistantservice.dto.MessageDTO;
+import com.example.tesisaoskaunto.assistantservice.service.MessageProcessingService;
 import org.springframework.stereotype.Component;
 
 @Component

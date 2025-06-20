@@ -6,13 +6,13 @@ option java_outer_classname = "ConversationProto";
 
 service ConversationService {
   rpc CreateConversation (ConversationRequest) returns (ConversationAnswerResponse);
-  rpc GetConversationByUserId (UserIdRequest) returns (ConversationResponse);
+  rpc GetConversationByProjectId (ProjectIdRequest) returns (ConversationResponse);
   rpc UpdateConversation (UpdateConversationRequest) returns (ConversationAnswerResponse);
   rpc DeleteConversation (DeleteConversationRequest) returns (ConversationAnswerResponse);
 }
 
 message ConversationRequest {
-  int64 userId = 1;
+  int64 projectId = 1;
   string name = 2;
 }
 
@@ -29,8 +29,8 @@ message ConversationAnswerResponse {
   string answer = 1;
 }
 
-message UserIdRequest {
-  int64 userId = 1;
+message ProjectIdRequest {
+  int64 projectId = 1;
 }
 
 message ConversationP {

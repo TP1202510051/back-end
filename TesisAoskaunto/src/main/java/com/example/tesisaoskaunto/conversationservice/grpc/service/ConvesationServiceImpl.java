@@ -25,15 +25,15 @@ public class ConvesationServiceImpl extends ConversationServiceGrpc.Conversation
 
     @Override
     public void createConversation(ConversationRequest request, StreamObserver<ConversationAnswerResponse> responseObserver) {
-        String generatedResponse = conversationAssistant.saveConversationInformation(request.getUserId(), request.getName());
+        String generatedResponse = conversationAssistant.saveConversationInformation(request.getProjectId(), request.getName());
         ConversationAnswerResponse reply = ConversationAnswerResponse.newBuilder().setAnswer(generatedResponse).build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
 
     @Override
-    public void getConversationByUserId(UserIdRequest request, StreamObserver<ConversationResponse> responseObserver){
-        List<Conversation> conversations = conversationRepository.findByUserId(request.getUserId());
+    public void getConversationByProjectId(ProjectIdRequest request, StreamObserver<ConversationResponse> responseObserver){
+        List<Conversation> conversations = conversationRepository.findByProjectId(request.getProjectId());
 
         List<ConversationP> conversationsProtos = conversations.stream()
                 .map(c -> ConversationP.newBuilder()
