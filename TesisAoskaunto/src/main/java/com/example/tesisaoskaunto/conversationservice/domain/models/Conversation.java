@@ -12,7 +12,7 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long userId;
+    public Long projectId;
 
     public String conversationName;
 
@@ -25,8 +25,8 @@ public class Conversation {
 
     public Conversation() {}
 
-    public Conversation(Long userId, String conversationName) {
-        this.userId = userId;
+    public Conversation(Long projectId, String conversationName) {
+        this.projectId = projectId;
         this.conversationName = conversationName;
     }
 
@@ -34,7 +34,7 @@ public class Conversation {
         return id;
     }
 
-    public Long getUserId() {return userId;}
+    public Long getProjectId() {return projectId;}
 
     public String getConversationName() {return conversationName;}
 
@@ -42,7 +42,7 @@ public class Conversation {
         return createdAt.toString();
     }
 
-    public void setUserId(Long userId) {this.userId = userId;}
+    public void setProjectId(Long projectId) {this.projectId = projectId;}
 
     public void setConversationName(String conversationName) {this.conversationName = conversationName;}
 }

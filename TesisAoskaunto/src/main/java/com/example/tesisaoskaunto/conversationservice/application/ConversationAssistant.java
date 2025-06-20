@@ -14,11 +14,11 @@ public class ConversationAssistant {
         this.conversationRepository = conversationRepository;
     }
 
-    public String saveConversationInformation(Long userId, String name) {
+    public String saveConversationInformation(Long projectId, String name) {
         Conversation conversation = new Conversation();
-        conversation.setUserId(userId);
+        conversation.setProjectId(projectId);
         conversation.setConversationName(name);
         var conversationToSave = conversationRepository.save(conversation);
-        return "La conversacion " + conversationToSave.getConversationName() + " fue recibida para el usuario " + conversationToSave.getUserId();
+        return "La conversacion " + conversationToSave.getConversationName() + " fue recibida para el usuario " + conversationToSave.getProjectId();
     }
 }

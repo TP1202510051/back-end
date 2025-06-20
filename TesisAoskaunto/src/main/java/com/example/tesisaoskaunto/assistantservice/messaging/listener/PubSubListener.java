@@ -1,7 +1,7 @@
-package com.example.tesisaoskaunto.brokerservice.messaging.listener;
+package com.example.tesisaoskaunto.assistantservice.messaging.listener;
 
-import com.example.tesisaoskaunto.brokerservice.dto.MessageDTO;
-import com.example.tesisaoskaunto.brokerservice.messaging.handler.IncomingMessageHandler;
+import com.example.tesisaoskaunto.assistantservice.dto.MessageDTO;
+import com.example.tesisaoskaunto.assistantservice.messaging.handler.IncomingMessageHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
@@ -23,16 +23,16 @@ public class PubSubListener {
 
     @PostConstruct
     public void subscribeToMessages() {
-        System.out.println("📡 Configurando suscripción Pub/Sub...");
+        //System.out.println("📡 Configurando suscripción Pub/Sub...");
 
         String projectId = System.getProperty("PROJECT_ID");
-        String subscriptionName = System.getProperty("SUBSCRIPTION");
+        String subscriptionName = System.getProperty("SUBSCRIPTION_PROMPT");
 
         ProjectSubscriptionName subscription = ProjectSubscriptionName.of(projectId, subscriptionName);
 
         MessageReceiver receiver = (PubsubMessage message, AckReplyConsumer consumer) -> {
             String messageJson = message.getData().toStringUtf8();
-            System.out.println("📥 Mensaje recibido: " + messageJson);
+            //System.out.println("📥 Mensaje recibido: " + messageJson);
             try {
                 MessageDTO dto = objectMapper.readValue(messageJson, MessageDTO.class);
                 handler.handle(dto);
@@ -45,6 +45,6 @@ public class PubSubListener {
 
         Subscriber subscriber = Subscriber.newBuilder(subscription, receiver).build();
         subscriber.startAsync().awaitRunning();
-        System.out.println("✅ Listener activo para Pub/Sub");
+        //System.out.println("✅ Listener activo para Pub/Sub");
     }
 }
