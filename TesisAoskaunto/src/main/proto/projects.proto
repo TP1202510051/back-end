@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.tesisaoskaunto.projectservice.grpc.proto";
+option java_outer_classname = "ProjectsProto";
+
+service ProjectService {
+  rpc CreateProject (ProjectRequest) returns (ProjectAnswerResponse);
+  rpc GetProjectByUserId (UserIdRequest) returns (ProjectResponse);
+  rpc UpdateProject (UpdateProjectRequest) returns (ProjectAnswerResponse);
+  rpc DeleteProject (DeleteProjectRequest) returns (ProjectAnswerResponse);
+}
+
+message ProjectRequest {
+  int64 userId = 1;
+  string name = 2;
+}
+
+message UpdateProjectRequest {
+  int64 id = 1;
+  string name = 2;
+}
+
+message DeleteProjectRequest{
+  int64 id = 1;
+}
+
+message ProjectAnswerResponse {
+  string answer = 1;
+}
+
+message UserIdRequest {
+  int64 userId = 1;
+}
+
+message ProjectP {
+  int64 id = 1;
+  string name = 2;
+  string createdAt = 3;
+}
+
+message ProjectResponse{
+  repeated ProjectP projects = 1;
+}

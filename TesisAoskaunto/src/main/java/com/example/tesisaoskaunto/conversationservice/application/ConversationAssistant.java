@@ -19,6 +19,6 @@ public class ConversationAssistant {
         conversation.setProjectId(projectId);
         conversation.setConversationName(name);
         var conversationToSave = conversationRepository.save(conversation);
-        return "La conversacion " + conversationToSave.getConversationName() + " fue recibida para el usuario " + conversationToSave.getProjectId();
+        return "La conversacion " + conversationToSave.getConversationName() + " fue recibida para el projecto " + conversationToSave.getProjectId();
     }
 }
