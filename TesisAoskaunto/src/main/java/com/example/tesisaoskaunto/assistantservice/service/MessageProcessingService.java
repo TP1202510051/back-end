@@ -18,9 +18,9 @@ public class MessageProcessingService {
         this.iaPublisher = iaPublisher;
     }
 
-    public void process(String message, String type, long conversationId) {
+    public void process(String message, long conversationId) {
         try{
-            messageAssistant.saveMessageAndType(message, type, conversationId);
+            messageAssistant.saveMessageAndType(message, "prompt", conversationId);
             //System.out.println("✅ Mensaje enviado al servicio correctamente");
             //System.out.println("Esperando respuesta...");
 
