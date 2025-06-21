@@ -12,8 +12,7 @@ service MessageService {
 
 message MessageRequest {
   string message = 1;
-  string type = 2;
-  int64 conversationId = 3;
+  int64 conversationId = 2;
 }
 
 message AnswerResponse {

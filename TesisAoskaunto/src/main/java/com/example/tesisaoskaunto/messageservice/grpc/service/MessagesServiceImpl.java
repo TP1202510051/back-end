@@ -43,7 +43,7 @@ public class MessagesServiceImpl extends MessageServiceGrpc.MessageServiceImplBa
 
     @Override
     public void createMessage(MessageRequest request, StreamObserver<AnswerResponse> responseObserver) {
-        String generatedResponse = conversationAssistant.saveMessageAndType(request.getMessage(), request.getType(), request.getConversationId());
+        String generatedResponse = conversationAssistant.saveMessageAndType(request.getMessage(), "prompt", request.getConversationId());
         AnswerResponse reply = AnswerResponse.newBuilder().setAnswer(generatedResponse).build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();

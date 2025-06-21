@@ -16,7 +16,7 @@ public class IncomingMessageHandler {
     public void handle(MessageDTO dto) {
         try {
             long conversationId = Long.parseLong(dto.getConversationId());
-            processingService.process(dto.getMessage(), dto.getType(), conversationId);
+            processingService.process(dto.getMessage(), conversationId);
         } catch (Exception e) {
             System.err.println("❌ Error al procesar el DTO: " + e.getMessage());
         }
