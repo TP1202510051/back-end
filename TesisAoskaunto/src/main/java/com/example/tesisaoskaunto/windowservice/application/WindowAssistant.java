@@ -13,11 +13,11 @@ public class WindowAssistant {
         this.windowRepository = windowRepository;
     }
 
-    public String saveProject(Long userId, String windowName) {
+    public String saveWindow(Long projectId, String windowName) {
         Window window = new Window();
-        window.setProjectId(userId);
+        window.setProjectId(projectId);
         window.setWindowName(windowName);
-        var projectToSave = windowRepository.save(window);
-        return "El projecto " + projectToSave.getWindowName() + " fue recibido para el proyecto " + projectToSave.getProjectId();
+        var windowToSave = windowRepository.save(window);
+        return "La ventana " + windowToSave.getWindowName() + " fue recibido para el proyecto " + windowToSave.getProjectId();
     }
 }
