@@ -1,15 +1,15 @@
-package com.example.tesisaoskaunto.projectservice.application;
+package com.example.tesisaoskaunto.projectservice.service;
 
 import com.example.tesisaoskaunto.projectservice.domain.models.Project;
 import com.example.tesisaoskaunto.projectservice.infrastructure.repositories.ProjectRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProjectAssistant {
+public class ProjectService {
 
     private final ProjectRepository projectRepository;
 
-    public ProjectAssistant(ProjectRepository projectRepository) {
+    public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
@@ -18,6 +18,6 @@ public class ProjectAssistant {
         project.setUserId(userId);
         project.setProjectName(projectName);
         var projectToSave = projectRepository.save(project);
-        return "El projecto " + projectToSave.getProjectName() + " fue recibido para el usuario " + projectToSave.getUserId();
+        return "El proyecto " + projectToSave.getProjectName() + " fue recibido para el usuario " + projectToSave.getUserId();
     }
 }

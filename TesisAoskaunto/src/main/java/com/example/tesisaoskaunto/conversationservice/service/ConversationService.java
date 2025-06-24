@@ -1,4 +1,4 @@
-package com.example.tesisaoskaunto.conversationservice.application;
+package com.example.tesisaoskaunto.conversationservice.service;
 
 import com.example.tesisaoskaunto.conversationservice.domain.models.Conversation;
 import com.example.tesisaoskaunto.conversationservice.infrastructure.repositories.ConversationRepository;
@@ -6,11 +6,11 @@ import com.example.tesisaoskaunto.conversationservice.infrastructure.repositorie
 import org.springframework.stereotype.Service;
 
 @Service
-public class ConversationAssistant {
+public class ConversationService {
 
     private final ConversationRepository conversationRepository;
 
-    public ConversationAssistant(ConversationRepository conversationRepository) {
+    public ConversationService(ConversationRepository conversationRepository) {
         this.conversationRepository = conversationRepository;
     }
 

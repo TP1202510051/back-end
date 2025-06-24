@@ -1,4 +1,4 @@
-package com.example.tesisaoskaunto.productservice.application;
+package com.example.tesisaoskaunto.productservice.service;
 
 import com.example.tesisaoskaunto.productservice.domain.models.Product;
 import com.example.tesisaoskaunto.productservice.domain.models.Size;
@@ -10,11 +10,11 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class ProductServiceAssistant {
+public class ProductService {
     private final SizeRepository sizeRepository;
     private final ProductRepository productRepository;
 
-    public ProductServiceAssistant(SizeRepository sizeRepository, ProductRepository productRepository) {
+    public ProductService(SizeRepository sizeRepository, ProductRepository productRepository) {
         this.sizeRepository = sizeRepository;
         this.productRepository = productRepository;
     }

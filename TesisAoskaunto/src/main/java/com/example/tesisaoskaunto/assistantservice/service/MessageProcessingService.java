@@ -2,17 +2,17 @@ package com.example.tesisaoskaunto.assistantservice.service;
 
 import com.example.tesisaoskaunto.assistantservice.ia.client.IAClient;
 import com.example.tesisaoskaunto.assistantservice.messaging.publisher.IAPublisher;
-import com.example.tesisaoskaunto.messageservice.application.MessageAssistant;
+import com.example.tesisaoskaunto.messageservice.service.MessageService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MessageProcessingService {
 
-    private final MessageAssistant messageAssistant;
+    private final MessageService messageAssistant;
     private final IAClient iaClient;
     private final IAPublisher iaPublisher;
 
-    public MessageProcessingService(MessageAssistant messageAssistant, IAClient iaClient, IAPublisher iaPublisher) {
+    public MessageProcessingService(MessageService messageAssistant, IAClient iaClient, IAPublisher iaPublisher) {
         this.messageAssistant = messageAssistant;
         this.iaClient = iaClient;
         this.iaPublisher = iaPublisher;

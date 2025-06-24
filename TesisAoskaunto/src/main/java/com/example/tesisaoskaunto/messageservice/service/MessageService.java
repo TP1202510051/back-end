@@ -1,15 +1,15 @@
-package com.example.tesisaoskaunto.messageservice.application;
+package com.example.tesisaoskaunto.messageservice.service;
 
 import com.example.tesisaoskaunto.messageservice.domain.models.Message;
 import com.example.tesisaoskaunto.messageservice.infrastructure.repositories.MessagesRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MessageAssistant {
+public class MessageService {
 
     private final MessagesRepository messagesRepository;
 
-    public MessageAssistant(MessagesRepository messagesRepository) {
+    public MessageService(MessagesRepository messagesRepository) {
         this.messagesRepository = messagesRepository;
     }
 
