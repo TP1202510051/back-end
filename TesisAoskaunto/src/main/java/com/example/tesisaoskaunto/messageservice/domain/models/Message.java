@@ -18,7 +18,7 @@ public class Message {
 
     private String type;
 
-    private Long conversationId;
+    private Long projectId;
 
     private LocalDateTime createdAt;
 
@@ -29,10 +29,10 @@ public class Message {
 
     public Message() {}
 
-    public Message(String content, String type, Long conversationId) {
+    public Message(String content, String type, Long projectId) {
         this.content = content;
         this.type = type;
-        this.conversationId = conversationId;
+        this.projectId = projectId;
     }
 
     public Long getId() {
@@ -47,8 +47,8 @@ public class Message {
         return type;
     }
 
-    public Long getConversationId() {
-        return conversationId;
+    public Long getProjectId() {
+        return projectId;
     }
 
     public void setType(String type) {
@@ -59,8 +59,8 @@ public class Message {
         this.content = content;
     }
 
-    public void setConversationId(Long conversationId) {
-        this.conversationId = conversationId;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     public String getCreatedAt() {

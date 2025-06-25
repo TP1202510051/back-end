@@ -24,8 +24,8 @@ public class ProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createProject(@RequestBody ProjectRequest request) {
-        String generatedResponse = projectService.saveProject(request.getUserId(), request.getName());
+    public ResponseEntity<Long> createProject(@RequestBody ProjectRequest request) {
+        Long generatedResponse = projectService.saveProject(request.getUserId(), request.getName());
         return ResponseEntity.ok(generatedResponse);
     }
 

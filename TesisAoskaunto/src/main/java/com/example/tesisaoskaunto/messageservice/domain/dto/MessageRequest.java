@@ -2,7 +2,7 @@ package com.example.tesisaoskaunto.messageservice.domain.dto;
 
 public class MessageRequest {
     private String message;
-    private Long conversationId;
+    private Long projectId;
 
     // Getters and setters
     public String getMessage() {
@@ -13,11 +13,11 @@ public class MessageRequest {
         this.message = message;
     }
 
-    public Long getConversationId() {
-        return conversationId;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setConversationId(Long conversationId) {
-        this.conversationId = conversationId;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }

@@ -13,13 +13,13 @@ public class MessageService {
         this.messagesRepository = messagesRepository;
     }
 
-    public String saveMessageAndType(String content, String type, Long conversationId) {
+    public String saveMessageAndType(String content, String type, Long projectId) {
         Message message = new Message();
         message.setContent(content);
         message.setType(type);
-        message.setConversationId(conversationId);
+        message.setProjectId(projectId);
         var MessageToSave = messagesRepository.save(message);
         //Volver json y convertir el json en string
-        return "El mensaje con el ID: " + MessageToSave.getId() + " fue recibido el " + MessageToSave.getCreatedAt() + " con el contenido: "+ MessageToSave.getContent() + " asociado al conversation: " + MessageToSave.getConversationId() + " el tipo de mesaje es " + MessageToSave.getType();
+        return "El mensaje con el ID: " + MessageToSave.getId() + " fue recibido el " + MessageToSave.getCreatedAt() + " con el contenido: "+ MessageToSave.getContent() + " asociado al conversation: " + MessageToSave.getProjectId() + " el tipo de mesaje es " + MessageToSave.getType();
     }
 }

@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface MessagesRepository extends JpaRepository<Message, Long> {
-    List<Message> findByConversationId(Long conversationId);
+    List<Message> findByProjectId(Long projectId);
+
+    List<Message> findByProjectIdOrderByCreatedAtAsc(Long projectId);
 }
