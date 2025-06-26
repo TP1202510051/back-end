@@ -10,7 +10,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // Punto de conexión al que se conectará React
         registry
                 .addEndpoint("/ws")
                 .setAllowedOriginPatterns("*")

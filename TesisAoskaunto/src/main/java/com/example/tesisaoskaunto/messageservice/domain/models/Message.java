@@ -16,6 +16,10 @@ public class Message {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String code;
+
     private String type;
 
     private Long projectId;
@@ -29,10 +33,11 @@ public class Message {
 
     public Message() {}
 
-    public Message(String content, String type, Long projectId) {
+    public Message(String content, String type, Long projectId, String code) {
         this.content = content;
         this.type = type;
         this.projectId = projectId;
+        this.code = code;
     }
 
     public Long getId() {
@@ -66,4 +71,8 @@ public class Message {
     public String getCreatedAt() {
         return createdAt.toString();
     }
+
+    public void setCode(String code) { this.code = code; }
+
+    public String getCode() { return code; }
 }

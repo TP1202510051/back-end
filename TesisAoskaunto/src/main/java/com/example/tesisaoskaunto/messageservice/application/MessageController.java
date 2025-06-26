@@ -31,7 +31,7 @@ public class MessageController {
 
     @PostMapping
     public ResponseEntity<String> createMessage(@RequestBody MessageRequest request) {
-        String generatedResponse = messageAssistant.saveMessageAndType(request.getMessage(), "prompt", request.getProjectId());
+        String generatedResponse = messageAssistant.saveMessageAndType(request.getMessage(), "prompt", request.getProjectId(), "");
         return ResponseEntity.ok(generatedResponse);
     }
 
