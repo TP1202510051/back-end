@@ -13,11 +13,11 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public String saveProject(Long userId, String projectName) {
+    public Long saveProject(Long userId, String projectName) {
         Project project = new Project();
         project.setUserId(userId);
         project.setProjectName(projectName);
         var projectToSave = projectRepository.save(project);
-        return "El proyecto " + projectToSave.getProjectName() + " fue recibido para el usuario " + projectToSave.getUserId();
+        return projectToSave.getId();
     }
 }

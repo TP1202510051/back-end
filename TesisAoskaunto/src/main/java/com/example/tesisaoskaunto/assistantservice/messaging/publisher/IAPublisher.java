@@ -14,8 +14,7 @@ public class IAPublisher {
     }
 
     public void publishResponse(String message, Long projectId) {
-        //System.out.println("Lo que se va a enviar en el websocket: " + message + " " + projectId);
-
+        System.out.println("🔔 Publicando WS en /topic/conversation/" + projectId + ": " + message);
         messagingTemplate.convertAndSend(
                 "/topic/conversation/" + projectId,
                 message
