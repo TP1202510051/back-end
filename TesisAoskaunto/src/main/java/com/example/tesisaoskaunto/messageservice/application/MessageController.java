@@ -30,8 +30,8 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createMessage(@RequestBody MessageRequest request) {
-        String generatedResponse = messageAssistant.saveMessageAndType(request.getMessage(), "prompt", request.getProjectId(), "");
+    public ResponseEntity<Long> createMessage(@RequestBody MessageRequest request) {
+        Long generatedResponse = messageAssistant.saveMessageAndType(request.getMessage(), "prompt", request.getProjectId());
         return ResponseEntity.ok(generatedResponse);
     }
 

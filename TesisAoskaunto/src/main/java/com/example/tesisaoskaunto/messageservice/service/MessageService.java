@@ -15,14 +15,13 @@ public class MessageService {
         this.messagesRepository = messagesRepository;
     }
 
-    public String saveMessageAndType(String content, String type, Long projectId, String code) {
+    public Long saveMessageAndType(String content, String type, Long projectId) {
         Message message = new Message();
         message.setContent(content);
         message.setType(type);
         message.setProjectId(projectId);
-        message.setCode(code);
         var MessageToSave = messagesRepository.save(message);
-        return "El mensaje con el ID: " + MessageToSave.getId() + " fue recibido el " + MessageToSave.getCreatedAt() + " con el contenido: "+ MessageToSave.getContent() + " asociado al conversation: " + MessageToSave.getProjectId() + " el tipo de mesaje es " + MessageToSave.getType();
+        return MessageToSave.getId();
     }
 
     public List<Message> getMessagesByProjectId(Long projectId) {
