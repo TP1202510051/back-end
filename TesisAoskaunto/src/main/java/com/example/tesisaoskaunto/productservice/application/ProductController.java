@@ -30,8 +30,6 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@RequestBody CreateProductRequest request) {
-        Set<Size> sizes = sizeRepository.findByIdIn(request.getSizeIds());
-
         Product product = new Product();
         product.setName(request.getName());
         product.setDescription(request.getDescription());
@@ -39,11 +37,15 @@ public class ProductController {
         product.setDiscount(BigDecimal.valueOf(request.getDiscount()));
         product.setImage(request.getImage());
         product.setCategory(request.getCategory());
-        product.setSizes(sizes);
+        product.setProjectId(request.getProjectId());
 
-        Product savedProduct = productRepository.save(product);
+        List<Size> sizes = request.getSizes().stream()
+                .map(dto -> new Size(dto.getName(), dto.isActive()))
+                .toList();
 
-        ProductResponse response = new ProductResponse(savedProduct.getId(), savedProduct.getName());
+        Product saved = productServiceAssistant.createProductWithSizes(product, sizes);
+
+        ProductResponse response = new ProductResponse(saved.getId(), saved.getName());
         return ResponseEntity.ok(response);
     }
 
