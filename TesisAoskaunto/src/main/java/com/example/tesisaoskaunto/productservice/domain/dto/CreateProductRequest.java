@@ -1,5 +1,6 @@
 package com.example.tesisaoskaunto.productservice.domain.dto;
 
+import java.util.List;
 import java.util.Set;
 
 public class CreateProductRequest {
@@ -9,7 +10,8 @@ public class CreateProductRequest {
     private double discount;
     private String image;
     private String category;
-    private Set<Long> sizeIds;
+    private Long projectId;
+    private List<SizeDto> sizes;
 
     public String getName() {
         return name;
@@ -59,11 +61,9 @@ public class CreateProductRequest {
         this.category = category;
     }
 
-    public Set<Long> getSizeIds() {
-        return sizeIds;
-    }
+    public List<SizeDto> getSizes() { return sizes; }
+    public void setSizes(List<SizeDto> sizes) { this.sizes = sizes; }
 
-    public void setSizeIds(Set<Long> sizeIds) {
-        this.sizeIds = sizeIds;
-    }
+    public Long getProjectId() { return projectId; }
+    public void setProjectId(Long projectId) { this.projectId = projectId; }
 }

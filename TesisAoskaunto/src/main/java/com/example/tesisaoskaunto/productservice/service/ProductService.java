@@ -20,8 +20,10 @@ public class ProductService {
     }
 
     public Product createProductWithSizes(Product product, List<Size> sizes) {
-        List<Size> persistedSize = sizeRepository.saveAll(sizes);
-        product.setSizes(new HashSet<>(persistedSize));
+        List<Size> persistedSizes = sizeRepository.saveAll(sizes);
+
+        product.setSizes(new HashSet<>(persistedSizes));
+
         return productRepository.save(product);
     }
 
