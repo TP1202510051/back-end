@@ -1,13 +1,16 @@
 package com.example.tesisaoskaunto;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import io.swagger.v3.oas.annotations.info.Info;
 
 
 @SpringBootApplication
 @EnableJpaAuditing
+@OpenAPIDefinition(info = @Info(title = "Mi API", version = "v1", description = "Documentación de mi servicio"))
 public class TesisAoskauntoApplication {
 
     public static void main(String[] args) {

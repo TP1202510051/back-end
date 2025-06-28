@@ -29,7 +29,7 @@ public class IAClient {
         body.put("prompt", prompt);
         body.put("max_tokens", 3000);
         body.put("temperature", 0.7);
-        body.put("stop", List.of("</s>"));
+        body.put("stop", List.of("</s>", "USER:", "SYSTEM:", "ASSISTANT:"));
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
         ResponseEntity<Map> response = restTemplate.postForEntity(API_URL, entity, Map.class);
