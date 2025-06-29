@@ -7,7 +7,6 @@ import com.example.tesisaoskaunto.productservice.service.ProductService;
 import com.example.tesisaoskaunto.productservice.infrastructure.repository.ProductRepository;
 import com.example.tesisaoskaunto.productservice.infrastructure.repository.SizeRepository;
 import com.example.tesisaoskaunto.productservice.domain.dto.CreateProductRequest;
-import com.example.tesisaoskaunto.productservice.domain.dto.ProductResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,16 +19,14 @@ public class ProductController {
 
     private final ProductService productServiceAssistant;
     private final ProductRepository productRepository;
-    private final SizeRepository sizeRepository;
 
-    public ProductController(ProductService productServiceAssistant, ProductRepository productRepository, SizeRepository sizeRepository, CategoryRepository categoryRepository) {
+    public ProductController(ProductService productServiceAssistant, ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productServiceAssistant = productServiceAssistant;
         this.productRepository = productRepository;
-        this.sizeRepository = sizeRepository;
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponse> createProduct(@RequestBody CreateProductRequest request) {
+    public ResponseEntity<Product> createProduct(@RequestBody CreateProductRequest request) {
         Product product = new Product();
         product.setName(request.getName());
         product.setDescription(request.getDescription());
@@ -42,9 +39,8 @@ public class ProductController {
                 .map(dto -> new Size(dto.getName(), dto.isActive()))
                 .toList();
 
-        Product saved = productServiceAssistant.createProductWithSizes(product, sizes);
+        Product response = productServiceAssistant.createProductWithSizes(product, sizes);
 
-        ProductResponse response = new ProductResponse(saved.getId(), saved.getName());
         return ResponseEntity.ok(response);
     }
 
