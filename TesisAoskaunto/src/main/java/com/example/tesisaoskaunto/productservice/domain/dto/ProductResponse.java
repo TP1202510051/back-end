@@ -9,7 +9,6 @@ public class ProductResponse {
         this.name = name;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

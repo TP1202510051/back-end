@@ -1,5 +1,6 @@
 package com.example.tesisaoskaunto.productservice.application;
 
+import com.example.tesisaoskaunto.categoryservice.infrastructure.repositories.CategoryRepository;
 import com.example.tesisaoskaunto.productservice.domain.models.Product;
 import com.example.tesisaoskaunto.productservice.domain.models.Size;
 import com.example.tesisaoskaunto.productservice.service.ProductService;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/products")
@@ -22,7 +22,7 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final SizeRepository sizeRepository;
 
-    public ProductController(ProductService productServiceAssistant, ProductRepository productRepository, SizeRepository sizeRepository) {
+    public ProductController(ProductService productServiceAssistant, ProductRepository productRepository, SizeRepository sizeRepository, CategoryRepository categoryRepository) {
         this.productServiceAssistant = productServiceAssistant;
         this.productRepository = productRepository;
         this.sizeRepository = sizeRepository;
@@ -36,8 +36,7 @@ public class ProductController {
         product.setPrice(BigDecimal.valueOf(request.getPrice()));
         product.setDiscount(BigDecimal.valueOf(request.getDiscount()));
         product.setImage(request.getImage());
-        product.setCategory(request.getCategory());
-        product.setProjectId(request.getProjectId());
+        product.setCategoryId(request.getCategoryId());
 
         List<Size> sizes = request.getSizes().stream()
                 .map(dto -> new Size(dto.getName(), dto.isActive()))
@@ -49,10 +48,9 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
-        return productRepository.findById(id)
-                .map(product -> ResponseEntity.ok(new ProductResponse(product.getId(), product.getName())))
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<Product>> getProductByCategoryId(@PathVariable Long categoryId) {
+        List<Product> products = productRepository.findByCategoryId(categoryId);
+        return ResponseEntity.ok(products);
     }
 }
