@@ -114,18 +114,18 @@ public class MessageProcessingService {
     }
 
     @Transactional
-    public void process(String incomingText, Long projectId) {
+    public void process(String incomingText, Long windowId) {
         try {
-            messageService.saveMessageAndType(incomingText, "prompt", projectId);
+            messageService.saveMessageAndType(incomingText, "prompt", windowId);
 
-            List<Message> history = messageService.getMessagesByProjectId(projectId);
+            List<Message> history = messageService.getMessagesByProjectId(windowId);
             boolean hasSystem = history.stream().anyMatch(m -> "system".equals(m.getType()));
             if (!hasSystem) {
-                messageService.saveMessageAndType(SYSTEM_PROMPT, "system", projectId);
+                messageService.saveMessageAndType(SYSTEM_PROMPT, "system", windowId);
                 history.add(0, new Message(SYSTEM_PROMPT, "", 0L));
             }
 
-            List<Code> codes = codeService.getCodesByProjectId(projectId);
+            List<Code> codes = codeService.getCodesByWindowId(windowId);
 
             StringBuilder finalPrompt = new StringBuilder();
             finalPrompt.append(SYSTEM_PROMPT).append("\n\n");
@@ -162,9 +162,9 @@ public class MessageProcessingService {
             String code = resp.IAcode;
             String text = resp.IAtext;
 
-            iaPublisher.publishResponse(text, projectId, code);
-            Long messageId = messageService.saveMessageAndType(text, "response", projectId);
-            String log = codeService.saveCode(projectId, code, messageId);
+            iaPublisher.publishResponse(text, windowId, code);
+            Long messageId = messageService.saveMessageAndType(text, "response", windowId);
+            String log = codeService.saveCode(windowId, code, messageId);
             System.out.println(log);
 
         } catch (Exception e) {

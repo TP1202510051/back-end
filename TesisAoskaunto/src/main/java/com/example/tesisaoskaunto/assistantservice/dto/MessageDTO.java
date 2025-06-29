@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MessageDTO {
     private String message;
-    private Long projectId;
+    private Long windowId;
 
     public String getMessage() {
         return message;
@@ -15,11 +15,11 @@ public class MessageDTO {
         this.message = message;
     }
 
-    public Long getProjectId() {
-        return projectId;
+    public Long getWindowId() {
+        return windowId;
     }
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
+    public void setWindowId(Long windowId) {
+        this.windowId = windowId;
     }
 }

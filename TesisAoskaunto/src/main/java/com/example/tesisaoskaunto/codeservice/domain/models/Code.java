@@ -12,7 +12,7 @@ public class Code {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long projectId;
+    public Long windowId;
 
     public Long messageId;
 
@@ -29,8 +29,8 @@ public class Code {
 
     public Code() {}
 
-    public Code(Long projectId, String code, Long messageId) {
-        this.projectId = projectId;
+    public Code(Long windowId, String code, Long messageId) {
+        this.windowId = windowId;
         this.code = code;
         this.messageId = messageId;
     }
@@ -39,7 +39,7 @@ public class Code {
         return id;
     }
 
-    public Long getProjectId() {return projectId;}
+    public Long getWindowId() {return windowId;}
 
     public String getCode() {return code;}
 
@@ -47,7 +47,7 @@ public class Code {
         return createdAt.toString();
     }
 
-    public void setProjectId(Long projectId) {this.projectId = projectId;}
+    public void setWindowId(Long windowId) {this.windowId = windowId;}
 
     public void setCode(String code) {this.code = code;}
 
