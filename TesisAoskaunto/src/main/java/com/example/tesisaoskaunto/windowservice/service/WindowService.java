@@ -13,11 +13,11 @@ public class WindowService {
         this.windowRepository = windowRepository;
     }
 
-    public String saveWindow(Long projectId, String windowName) {
+    public Window saveWindow(Long projectId, String windowName) {
         Window window = new Window();
         window.setProjectId(projectId);
         window.setWindowName(windowName);
-        var windowToSave = windowRepository.save(window);
-        return "La ventana " + windowToSave.getWindowName() + " fue recibido para el proyecto " + windowToSave.getProjectId();
+        Window windowToSave = windowRepository.save(window);
+        return windowToSave;
     }
 }

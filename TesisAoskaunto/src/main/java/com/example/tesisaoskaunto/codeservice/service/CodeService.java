@@ -15,16 +15,17 @@ public class CodeService {
         this.codeRepository = codeRepository;
     }
 
-    public String saveCode(Long projectId, String code, Long messageId) {
+    public String saveCode(Long windowId, String code, Long messageId) {
         Code cod = new Code();
-        cod.setProjectId(projectId);
+        cod.setWindowId(windowId);
         cod.setCode(code);
         cod.setMessageId(messageId);
         var conversationToSave = codeRepository.save(cod);
-        return "La conversacion " + conversationToSave.getCode() + " fue recibida para el projecto " + conversationToSave.getProjectId();
+        return "La conversacion " + conversationToSave.getCode() + " fue recibida para la ventana " + conversationToSave.getWindowId();
     }
 
-    public List<Code> getCodesByProjectId(Long projectId) {
-        return codeRepository.findAllByProjectId(projectId);
+    public List<Code> getCodesByWindowId(Long windowId) {
+        return codeRepository.findAllByWindowId(windowId);
     }
+
 }

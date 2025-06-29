@@ -15,17 +15,17 @@ public class MessageService {
         this.messagesRepository = messagesRepository;
     }
 
-    public Long saveMessageAndType(String content, String type, Long projectId) {
+    public Long saveMessageAndType(String content, String type, Long windowId) {
         Message message = new Message();
         message.setContent(content);
         message.setType(type);
-        message.setProjectId(projectId);
+        message.setWindowId(windowId);
         var MessageToSave = messagesRepository.save(message);
         return MessageToSave.getId();
     }
 
-    public List<Message> getMessagesByProjectId(Long projectId) {
+    public List<Message> getMessagesByProjectId(Long windowId) {
         return messagesRepository
-                .findByProjectIdOrderByCreatedAtAsc(projectId);
+                .findByWindowIdOrderByCreatedAtAsc(windowId);
     }
 }

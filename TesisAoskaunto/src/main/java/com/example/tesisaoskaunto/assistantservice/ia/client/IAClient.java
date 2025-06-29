@@ -27,7 +27,7 @@ public class IAClient {
         Map<String, Object> body = new HashMap<>();
         body.put("model", "mistralai/Mixtral-8x7B-Instruct-v0.1");
         body.put("prompt", prompt);
-        body.put("max_tokens", 3000);
+        body.put("max_tokens", 1000);
         body.put("temperature", 0.7);
         body.put("stop", List.of("</s>", "USER:", "SYSTEM:", "ASSISTANT:"));
 

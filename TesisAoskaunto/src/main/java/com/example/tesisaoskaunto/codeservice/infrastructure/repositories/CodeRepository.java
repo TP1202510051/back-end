@@ -9,7 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface CodeRepository extends JpaRepository<Code, Long> {
-    Optional<Code> findByProjectId(Long projectId);
+    Optional<Code> findByWindowId(Long windowId);
 
-    List<Code> findAllByProjectId(Long projectId);
+    List<Code> findAllByWindowId(Long windowId);
+
+    Code findTopByWindowIdOrderByCreatedAtDesc(Long windowId);
 }

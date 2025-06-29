@@ -23,15 +23,15 @@ public class MessageController {
         this.messageAssistant = messageAssistant;
     }
 
-    @GetMapping("/{projectId}")
-    public ResponseEntity<List<Message>> getMessagesByProjectId(@PathVariable Long projectId) {
-        List<Message> messages = messagesRepository.findByProjectId(projectId);
+    @GetMapping("/{windowId}")
+    public ResponseEntity<List<Message>> getMessagesByWindowId(@PathVariable Long windowId) {
+        List<Message> messages = messagesRepository.findByWindowId(windowId);
         return ResponseEntity.ok(messages);
     }
 
     @PostMapping
     public ResponseEntity<Long> createMessage(@RequestBody MessageRequest request) {
-        Long generatedResponse = messageAssistant.saveMessageAndType(request.getMessage(), "prompt", request.getProjectId());
+        Long generatedResponse = messageAssistant.saveMessageAndType(request.getMessage(), "prompt", request.getWindowId());
         return ResponseEntity.ok(generatedResponse);
     }
 
