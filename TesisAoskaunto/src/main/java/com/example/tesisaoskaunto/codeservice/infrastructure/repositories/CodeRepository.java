@@ -13,5 +13,7 @@ public interface CodeRepository extends JpaRepository<Code, Long> {
 
     List<Code> findAllByWindowId(Long windowId);
 
+    List<Code> findByWindowIdIn(List<Long> windowIds);
+
     Code findTopByWindowIdOrderByCreatedAtDesc(Long windowId);
 }

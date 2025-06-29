@@ -1,0 +1,36 @@
+package com.tiendagenerada.web;
+
+import com.tiendagenerada.domain.Product;
+import com.tiendagenerada.service.ProductService;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/admin/products")
+@CrossOrigin(origins = "*")
+public class AdminProductController {
+
+    private final ProductService productService;
+
+    public AdminProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product) {
+        return productService.save(product);
+    }
+
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product productDetails) {
+        Product product = productService.findById(id);
+        // Actualizar campos...
+        product.setName(productDetails.getName());
+        product.setPrice(productDetails.getPrice());
+        return productService.save(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteById(id);
+    }
+}

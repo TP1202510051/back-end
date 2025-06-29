@@ -1,0 +1,38 @@
+package com.tiendagenerada.web;
+
+import com.tiendagenerada.service.PaymentService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "*")
+public class PaymentController {
+
+    private final PaymentService paymentService;
+
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+
+    @PostMapping("/orders/create-payment")
+    public ResponseEntity<?> createPayment(@RequestBody Map<String, String> payload) {
+        try {
+            BigDecimal amount = new BigDecimal(payload.get("amount"));
+            String preferenceId = paymentService.createPaymentPreference(amount);
+            return ResponseEntity.ok(Collections.singletonMap("preferenceId", preferenceId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/webhooks/mercadopago")
+    public ResponseEntity<Void> handleWebhook(@RequestBody Map<String, Object> notification) {
+        System.out.println("Webhook recibido: " + notification);
+        paymentService.handlePaymentNotification(notification);
+        return ResponseEntity.ok().build();
+    }
+}

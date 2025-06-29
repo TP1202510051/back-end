@@ -1,0 +1,19 @@
+// src/main/resources/templates/code-generation/frontend/Page.jsx.vm
+import React from 'react';
+
+#foreach($component in $components)
+import Component${component.id} from '../components/Component${component.id}.jsx';
+#end
+
+function ${window.windowName.replace(' ', '')}() {
+  return (
+    <>
+      {/* Componentes generados específicamente para la página: ${window.windowName} */}
+#foreach($component in $components)
+      <Component${component.id} />
+#end
+    </>
+  );
+}
+
+export default ${window.windowName.replace(' ', '')};
