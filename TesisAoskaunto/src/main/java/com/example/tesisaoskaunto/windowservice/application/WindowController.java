@@ -25,8 +25,8 @@ public class WindowController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createWindow(@RequestBody WindowRequest request) {
-        String generatedResponse = windowAssistant.saveWindow(request.getProjectId(), request.getName());
+    public ResponseEntity<Window> createWindow(@RequestBody WindowRequest request) {
+        Window generatedResponse = windowAssistant.saveWindow(request.getProjectId(), request.getName());
         return ResponseEntity.ok(generatedResponse);
     }
 
