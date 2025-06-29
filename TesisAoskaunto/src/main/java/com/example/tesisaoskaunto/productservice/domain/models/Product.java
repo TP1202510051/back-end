@@ -18,8 +18,7 @@ public class Product {
     private BigDecimal price;
     private BigDecimal discount;
     private String image;
-    private String category;
-    private Long projectId;
+    private Long categoryId;
 
     @ManyToMany
     @JoinTable(
@@ -78,14 +77,6 @@ public class Product {
         this.image = image;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public Set<Size> getSizes() {
         return sizes;
     }
@@ -94,7 +85,7 @@ public class Product {
         this.sizes = sizes;
     }
 
-    public Long getProjectId() { return projectId; }
+    public Long getCategoryId() { return categoryId; }
 
-    public void setProjectId(Long projectId) { this.projectId = projectId; }
+    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
 }

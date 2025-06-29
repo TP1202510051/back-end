@@ -9,8 +9,7 @@ public class CreateProductRequest {
     private double price;
     private double discount;
     private String image;
-    private String category;
-    private Long projectId;
+    private Long categoryId;
     private List<SizeDto> sizes;
 
     public String getName() {
@@ -53,17 +52,9 @@ public class CreateProductRequest {
         this.image = image;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public List<SizeDto> getSizes() { return sizes; }
     public void setSizes(List<SizeDto> sizes) { this.sizes = sizes; }
 
-    public Long getProjectId() { return projectId; }
-    public void setProjectId(Long projectId) { this.projectId = projectId; }
+    public Long getCategoryId() { return categoryId; }
+    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
 }
