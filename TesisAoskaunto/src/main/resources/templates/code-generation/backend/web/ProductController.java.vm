@@ -1,0 +1,28 @@
+package com.tiendagenerada.web;
+
+import com.tiendagenerada.domain.Product;
+import com.tiendagenerada.service.ProductService;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/products")
+@CrossOrigin(origins = "*") // Permitir acceso desde cualquier origen
+public class ProductController {
+
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Long id) {
+        return productService.findById(id);
+    }
+}

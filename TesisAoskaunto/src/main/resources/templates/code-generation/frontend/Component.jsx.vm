@@ -1,0 +1,12 @@
+import React from 'react';
+
+function Component${component.id}() {
+  return (
+    <>
+      {/* Componente autogenerado con ID: ${component.id} */}
+      ${component.code}
+    </>
+  );
+};
+
+export default Component${component.id};

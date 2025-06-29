@@ -1,0 +1,20 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+#foreach($window in $windows)
+import ${window.windowName.replace(' ', '')} from './pages/${window.windowName.replace(' ', '')}.jsx';
+#end
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        #foreach($window in $windows)
+        <Route path="/#if($foreach.index == 0) #else${window.windowName.toLowerCase().replace(' ', '-')}#end" element={<${window.windowName.replace(' ', '')} />} />
+        #end
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
