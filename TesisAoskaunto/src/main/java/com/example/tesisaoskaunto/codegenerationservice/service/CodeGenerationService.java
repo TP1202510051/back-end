@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Service;
 
+import com.example.tesisaoskaunto.codegenerationservice.dto.GeneratedProject;
 import com.example.tesisaoskaunto.codegenerationservice.dto.ProjectData;
 import com.example.tesisaoskaunto.codeservice.infrastructure.repositories.CodeRepository;
 import com.example.tesisaoskaunto.productservice.infrastructure.repository.ProductRepository;
@@ -48,7 +49,7 @@ public class CodeGenerationService {
         this.productRepository = productRepository;
     }
 
-    public byte[] generateProjectZip(Long projectId) throws IOException {
+    public GeneratedProject generateProjectZip(Long projectId) throws IOException {
         // Validar que el proyecto existe
         var project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new IllegalArgumentException("Proyecto no encontrado con ID: " + projectId));
@@ -66,6 +67,9 @@ public class CodeGenerationService {
 
         ProjectData projectData = new ProjectData(project, windows, allComponents, products);
 
+        String sanitizedProjectName = project.getProjectName().replaceAll("[^a-zA-Z0-9.-]", "_");
+        String fileName = sanitizedProjectName + ".zip";        
+
         Path tempDir = Files.createTempDirectory("tienda-generada-");
         try {
             // 1. Delegar generación
@@ -73,7 +77,9 @@ public class CodeGenerationService {
             backendGenerator.generate(tempDir, projectData);
 
             // 2. Empaquetar
-            return zipService.createZip(tempDir);
+            byte[] zipData = zipService.createZip(tempDir);
+
+            return new GeneratedProject(fileName, zipData);
 
         } finally {
             // 3. Limpiar siempre el directorio temporal

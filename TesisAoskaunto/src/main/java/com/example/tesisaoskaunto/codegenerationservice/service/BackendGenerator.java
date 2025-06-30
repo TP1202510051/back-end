@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -25,6 +26,8 @@ public class BackendGenerator {
         Path mainDir = backendDir.resolve("src/main");
         Path javaDir = mainDir.resolve("java");
         Path resourcesDir = mainDir.resolve("resources");
+
+        Files.createDirectories(resourcesDir);
         
         String packageName = "com/tiendagenerada";
         Path packageDir = javaDir.resolve(packageName);
@@ -40,7 +43,9 @@ public class BackendGenerator {
         // 2. Definir el contexto para las plantillas
         String projectName = projectData.getProject().getProjectName();
         String dbName = projectName.toLowerCase().replaceAll("[^a-zA-Z0-9]", "_");
-        Map<String, Object> context = Map.of("projectName", projectName, "dbName", dbName);
+        Map<String, Object> context = new HashMap<>();
+        context.put("projectName", projectName);
+        context.put("dbName", dbName);
 
         // 3. Generar archivos de configuración
         generateFile(backendDir, "pom.xml.vm", "pom.xml", context);
@@ -48,7 +53,9 @@ public class BackendGenerator {
 
         // 4. Generar clases Java
         String mainClassName = projectName.replace(" ", "") + "Application";
-        generateFile(packageDir, "Application.java.vm", mainClassName + ".java", Map.of("mainClassName", mainClassName));
+        Map<String, Object> mainClassContext = new HashMap<>();
+        mainClassContext.put("mainClassName", mainClassName);
+        generateFile(packageDir, "Application.java.vm", mainClassName + ".java", Map.of("mainClassName", mainClassContext));
         
         // Generar capa de Dominio
         generateFile(packageDir.resolve("domain"), "domain/Product.java.vm", "Product.java", Collections.emptyMap());
