@@ -1,8 +1,11 @@
 package com.example.tesisaoskaunto.windowservice.service;
 
+import com.example.tesisaoskaunto.categoryservice.domain.models.Category;
 import com.example.tesisaoskaunto.windowservice.domain.models.Window;
 import com.example.tesisaoskaunto.windowservice.infrastructure.repositories.WindowRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class WindowService {
@@ -19,5 +22,9 @@ public class WindowService {
         window.setWindowName(windowName);
         Window windowToSave = windowRepository.save(window);
         return windowToSave;
+    }
+
+    public List<Window> getWindowByProjectId(Long projectId) {
+        return windowRepository.findByProjectId(projectId);
     }
 }

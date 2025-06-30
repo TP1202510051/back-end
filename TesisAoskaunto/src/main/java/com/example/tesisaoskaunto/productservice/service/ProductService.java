@@ -1,5 +1,6 @@
 package com.example.tesisaoskaunto.productservice.service;
 
+import com.example.tesisaoskaunto.categoryservice.domain.models.Category;
 import com.example.tesisaoskaunto.productservice.domain.models.Product;
 import com.example.tesisaoskaunto.productservice.domain.models.Size;
 import com.example.tesisaoskaunto.productservice.infrastructure.repository.ProductRepository;
@@ -27,4 +28,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public List<Product> getProductsByCategoryId(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
 }

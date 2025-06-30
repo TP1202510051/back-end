@@ -6,6 +6,7 @@ import lombok.Data;
 public class MessageDTO {
     private String message;
     private Long windowId;
+    private Long projectId;
 
     public String getMessage() {
         return message;
@@ -19,7 +20,8 @@ public class MessageDTO {
         return windowId;
     }
 
-    public void setWindowId(Long windowId) {
-        this.windowId = windowId;
+    public Long getProjectId() {
+        return projectId;
     }
+
 }
