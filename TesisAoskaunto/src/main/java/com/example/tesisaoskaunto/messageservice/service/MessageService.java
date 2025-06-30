@@ -24,8 +24,7 @@ public class MessageService {
         return MessageToSave.getId();
     }
 
-    public List<Message> getMessagesByProjectId(Long windowId) {
-        return messagesRepository
-                .findByWindowIdOrderByCreatedAtAsc(windowId);
+    public List<Message> getMessagesByWindowId(Long windowId) {
+        return messagesRepository.findByWindowIdOrderByCreatedAtAsc(windowId);
     }
 }

@@ -2,7 +2,10 @@ package com.example.tesisaoskaunto.categoryservice.service;
 
 import com.example.tesisaoskaunto.categoryservice.domain.models.Category;
 import com.example.tesisaoskaunto.categoryservice.infrastructure.repositories.CategoryRepository;
+import com.example.tesisaoskaunto.messageservice.domain.models.Message;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CategoryService {
@@ -19,5 +22,10 @@ public class CategoryService {
         category.setCategoryName(categoryName);
         Category categoryToSave = categoryRepository.save(category);
         return categoryToSave;
+    }
+
+    public List<Category> getCategoriesByProjectId(Long projectId) {
+        return categoryRepository
+                .findByProjectId(projectId);
     }
 }
