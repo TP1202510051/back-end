@@ -11,7 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
@@ -19,10 +20,12 @@ public class ProductController {
 
     private final ProductService productServiceAssistant;
     private final ProductRepository productRepository;
+    private final SizeRepository sizeRepository;
 
-    public ProductController(ProductService productServiceAssistant, ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductController(ProductService productServiceAssistant, ProductRepository productRepository, CategoryRepository categoryRepository, SizeRepository sizeRepository) {
         this.productServiceAssistant = productServiceAssistant;
         this.productRepository = productRepository;
+        this.sizeRepository = sizeRepository;
     }
 
     @PostMapping
@@ -48,5 +51,58 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProductByCategoryId(@PathVariable Long categoryId) {
         List<Product> products = productRepository.findByCategoryId(categoryId);
         return ResponseEntity.ok(products);
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long productId, @RequestBody Product updatedProduct) {
+        Optional<Product> existingProductOpt = productRepository.findById(productId);
+
+        if (existingProductOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Product existingProduct = existingProductOpt.get();
+
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setDescription(updatedProduct.getDescription());
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setDiscount(updatedProduct.getDiscount());
+        existingProduct.setImage(updatedProduct.getImage());
+        existingProduct.setCategoryId(updatedProduct.getCategoryId());
+
+        Map<String, Size> currentSizesMap = existingProduct.getSizes()
+                .stream()
+                .collect(Collectors.toMap(Size::getName, s -> s));
+
+        Set<Size> newSizes = new HashSet<>();
+
+        for (Size incomingSize : updatedProduct.getSizes()) {
+            Size matched = currentSizesMap.get(incomingSize.getName());
+
+            if (matched != null) {
+                matched.setIsActive(incomingSize.getIsActive());
+                newSizes.add(matched);
+            } else {
+                Size newSize = new Size(incomingSize.getName(), incomingSize.getIsActive());
+                sizeRepository.save(newSize);
+                newSizes.add(newSize);
+            }
+        }
+        existingProduct.setSizes(newSizes);
+
+        Product savedProduct = productRepository.save(existingProduct);
+
+        return ResponseEntity.ok(savedProduct);
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable Long productId) {
+        Optional<Product> existingProductOpt = productRepository.findById(productId);
+        if (existingProductOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Product existingProduct = existingProductOpt.get();
+        productRepository.delete(existingProduct);
+        return ResponseEntity.noContent().build();
     }
 }
