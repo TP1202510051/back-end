@@ -1,0 +1,18 @@
+server.port=8080
+
+# Configuración de la Base de Datos MySQL
+spring.datasource.url=jdbc:mysql://localhost:3306/${dbName}?createDatabaseIfNotExist=true
+spring.datasource.username=root
+spring.datasource.password=admin
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Configuración de JPA
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+# --- CLAVES SECRETAS (Reemplazar con valores reales) ---
+# Clave secreta para proteger los endpoints de administración (POST, PUT, DELETE)
+api.secret.key=CAMBIAR_ESTA_CLAVE_SECRETA
+
+# Access Token de MercadoPago (obtener de tus credenciales de producción)
+mercadopago.access.token=CAMBIAR_TU_MERCADOPAGO_ACCESS_TOKEN

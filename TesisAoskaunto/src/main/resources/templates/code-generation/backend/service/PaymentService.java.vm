@@ -1,0 +1,80 @@
+package com.tiendagenerada.service;
+
+import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.preference.*;
+import com.mercadopago.exceptions.MPApiException;
+import com.mercadopago.exceptions.MPException;
+import com.tiendagenerada.domain.Order;
+import com.tiendagenerada.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class PaymentService {
+
+    @Value("${mercadopago.access.token}")
+    private String accessToken;
+
+    private final OrderRepository orderRepository;
+
+    public PaymentService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
+    public String createPaymentPreference(BigDecimal amount) throws MPException, MPApiException {
+        MercadoPagoConfig.setAccessToken(accessToken);
+
+        PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
+            .id("PROD-001")
+            .title("Compra en Mi Tienda")
+            .quantity(1)
+            .currencyId("PEN")
+            .unitPrice(amount)
+            .build();
+        List<PreferenceItemRequest> items = new ArrayList<>();
+        items.add(itemRequest);
+
+        PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
+            .success("http://localhost:5173/success") // URL de tu frontend
+            .failure("http://localhost:5173/failure")
+            .pending("http://localhost:5173/pending")
+            .build();
+        
+        PreferenceRequest preferenceRequest = PreferenceRequest.builder()
+            .items(items)
+            .backUrls(backUrls)
+            .autoReturn("approved")
+            .build();
+        
+        PreferenceClient client = new PreferenceClient();
+        Preference preference = client.create(preferenceRequest);
+
+        // Guardar la orden en la BD
+        Order order = new Order();
+        order.setPreferenceId(preference.getId());
+        order.setStatus("PENDING");
+        order.setTotalAmount(amount);
+        orderRepository.save(order);
+        
+        return preference.getId();
+    }
+    
+    public void handlePaymentNotification(Map<String, Object> notification) {
+        if ("payment".equals(notification.get("type"))) {
+            // Lógica para obtener el pago completo desde MercadoPago y actualizar la orden
+            // Por simplicidad, aquí solo actualizamos el estado.
+            String preferenceId = (String) ((Map)notification.get("data")).get("id"); // Esto puede variar
+            
+            orderRepository.findByPreferenceId(preferenceId).ifPresent(order -> {
+                order.setStatus("PAID");
+                orderRepository.save(order);
+                System.out.println("Orden actualizada a PAGADA: " + order.getId());
+            });
+        }
+    }
+}
