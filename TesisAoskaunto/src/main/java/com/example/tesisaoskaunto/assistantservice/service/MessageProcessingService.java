@@ -102,6 +102,14 @@ public class MessageProcessingService {
                 </footer>
               </div>
             </>
+            ---
+                 7. Formato de salida obligatorio
+                 Tu respuesta debe ser **exclusivamente** un JSON válido en una sola línea con las siguientes propiedades:
+                 - "IAcode": (string) el JSX generado, encerrado como string (respetando los saltos de línea si es necesario)
+                 - "IAtext": (string) una explicación breve del diseño generado
+                 Ejemplo de respuesta válida:
+                 {"IAcode":"<>\\n  <div style={{...}}>...</div>\\n</>","IAtext":"Interfaz generada con header, main y footer, organizando los productos por categoría."}
+            
     """;
 
 
