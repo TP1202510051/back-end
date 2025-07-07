@@ -12,7 +12,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long userId;
+    public String userId;
 
     public String projectName;
 
@@ -25,7 +25,7 @@ public class Project {
 
     public Project() {}
 
-    public Project(Long userId, String projectName) {
+    public Project(String userId, String projectName) {
         this.userId = userId;
         this.projectName = projectName;
     }
@@ -34,7 +34,7 @@ public class Project {
         return id;
     }
 
-    public Long getUserId() {return userId;}
+    public String getUserId() {return userId;}
 
     public String getProjectName() {return projectName;}
 
@@ -42,7 +42,7 @@ public class Project {
         return createdAt.toString();
     }
 
-    public void setUserId(Long userId) {this.userId = userId;}
+    public void setUserId(String userId) {this.userId = userId;}
 
     public void setProjectName(String projectName) {this.projectName = projectName;}
 }

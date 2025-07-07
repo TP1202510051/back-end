@@ -26,11 +26,12 @@ public class ProjectController {
     @PostMapping
     public ResponseEntity<Long> createProject(@RequestBody ProjectRequest request) {
         Long generatedResponse = projectService.saveProject(request.getUserId(), request.getName());
+        System.out.println(generatedResponse);
         return ResponseEntity.ok(generatedResponse);
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Project>> getProjectByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<Project>> getProjectByUserId(@PathVariable String userId) {
         List<Project> projects = projectRepository.findByUserId(userId);
         return ResponseEntity.ok(projects);
     }
