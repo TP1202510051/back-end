@@ -158,7 +158,6 @@
             <artifactId>google-cloud-pubsub</artifactId>
             <version>1.123.10</version>
         </dependency>
-
         <!-- Spring Boot Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
