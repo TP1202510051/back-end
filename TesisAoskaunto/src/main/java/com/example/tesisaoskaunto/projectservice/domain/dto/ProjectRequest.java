@@ -1,15 +1,15 @@
 package com.example.tesisaoskaunto.projectservice.domain.dto;
 
 public class ProjectRequest {
-    private Long userId;
+    private String userId;
     private String name;
 
     // Getters and setters
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

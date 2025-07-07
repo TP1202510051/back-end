@@ -13,7 +13,7 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public Long saveProject(Long userId, String projectName) {
+    public Long saveProject(String userId, String projectName) {
         Project project = new Project();
         project.setUserId(userId);
         project.setProjectName(projectName);
